@@ -24,7 +24,7 @@ public class worldGen {
         maxWidth = width;
     }
     public void generate() {
-        int[][] blocks = new int [maxHeight/16][maxWidth/16];
+        blocks = new int [maxHeight/16][maxWidth/16];
         startHeight = maxHeight/32;
         grassBlock = 1;
         dirtBlock = 2;
@@ -34,7 +34,9 @@ public class worldGen {
         for (int i = 0; i <= (maxWidth / 16) - 1; i++) {
             number = MathUtils.random(0,2);
             if (number == 0 && !up) {
-                startHeight = startHeight - 1;
+                if (startHeight > 1) {
+                    startHeight = startHeight - 1;
+                }
                 blocks[startHeight][i] = grassBlock;
                 for (int j = startHeight - 1; j >= startHeight - 3; j--) {
                     blocks[j][i] = dirtBlock;
@@ -46,7 +48,9 @@ public class worldGen {
                 up = false;
             }
             else if (number == 2 && !down) {
-                startHeight = startHeight + 1;
+                if (startHeight < (maxHeight/16)-1) {
+                    startHeight = startHeight + 1;
+                }
                 blocks[startHeight][i] = grassBlock;
                 for (int j = startHeight - 1; j >= startHeight - 3; j--) {
                     blocks[j][i] = dirtBlock;

@@ -36,7 +36,7 @@ public class Test extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(0, 0, 255, 50);
+		Gdx.gl.glClearColor(0, 0, 100, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		for (int i = 0; i <= (width / 16) - 1; i++) {
