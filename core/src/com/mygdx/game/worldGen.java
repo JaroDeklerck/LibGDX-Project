@@ -1,7 +1,10 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -18,6 +21,7 @@ public class worldGen {
     int startHeight;
     int number;
     int[][] blocks ;
+    int[] grassBlocks;
 
     public worldGen(int width, int height) {
         maxHeight = height;
@@ -25,6 +29,7 @@ public class worldGen {
     }
     public void generate() {
         blocks = new int [maxHeight/16][maxWidth/16];
+        grassBlocks = new int[50];
         startHeight = maxHeight/32;
         grassBlock = 1;
         dirtBlock = 2;
@@ -38,6 +43,7 @@ public class worldGen {
                     startHeight = startHeight - 1;
                 }
                 blocks[startHeight][i] = grassBlock;
+                grassBlocks[i] = startHeight * 16;
                 for (int j = startHeight - 1; j >= startHeight - 3; j--) {
                     blocks[j][i] = dirtBlock;
                 }
@@ -52,6 +58,7 @@ public class worldGen {
                     startHeight = startHeight + 1;
                 }
                 blocks[startHeight][i] = grassBlock;
+                grassBlocks[i] = startHeight * 16;
                 for (int j = startHeight - 1; j >= startHeight - 3; j--) {
                     blocks[j][i] = dirtBlock;
                 }
@@ -63,6 +70,7 @@ public class worldGen {
             }
             else if (number == 1 || number == 0 && up || number == 2 && down) {
                 blocks[startHeight][i] = grassBlock;
+                grassBlocks[i] = startHeight * 16;
                 for (int j = startHeight - 1; j >= startHeight - 3; j--) {
                     blocks[j][i] = dirtBlock;
                 }

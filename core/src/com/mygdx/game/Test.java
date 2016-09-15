@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -18,10 +19,14 @@ public class Test extends ApplicationAdapter {
 	Texture dirt;
 	Texture stone;
 	Texture grass;
+	Texture playerTexture;
 	int id;
 	int width = 800;
 	int height = 480;
 	worldGen gen = new worldGen(width,height);
+	entities player;
+	Rectangle playerBox;
+	Rectangle grassBox;
 	
 	@Override
 	public void create () {
@@ -31,7 +36,11 @@ public class Test extends ApplicationAdapter {
 		dirt = new Texture("dirt.jpg");
 		stone = new Texture("stone.jpg");
 		grass = new Texture("grass.jpg");
+		playerTexture = new Texture("guy2.png");
 		gen.generate();
+		player = new entities(17,32,16,(height/2)+32);
+		playerBox = new Rectangle(player.entityStartPosX, player.entityStartPosY, player.entityWidth, player.entityHeight);
+		grassBox = new Rectangle();
 	}
 
 	@Override
@@ -59,7 +68,9 @@ public class Test extends ApplicationAdapter {
 				}
 			}
 		}
+		batch.draw(playerTexture, playerBox.x, playerBox.y);
 		batch.end();
+		move();
 	}
 	
 	@Override
@@ -68,5 +79,20 @@ public class Test extends ApplicationAdapter {
 		dirt.dispose();
 		stone.dispose();
 		grass.dispose();
+	}
+	public void move() {
+		grassBox.y = 0;
+		grassBox.height = 16;
+		grassBox.width = 16;
+		playerBox.y -= 75 * Gdx.graphics.getDeltaTime();
+		for (int i = 0; i < 50; i++) {
+			grassBox.x = i;
+			grassBox.y = gen.grassBlocks[i];
+			if (playerBox.overlaps(grassBox)) {
+				playerBox.y = grassBox.y + 16;
+			}
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) playerBox.x -= 75 * Gdx.graphics.getDeltaTime();
+		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) playerBox.x += 75 * Gdx.graphics.getDeltaTime();
 	}
 }
