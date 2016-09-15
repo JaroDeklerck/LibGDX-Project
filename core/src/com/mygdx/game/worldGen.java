@@ -44,7 +44,7 @@ public class worldGen {
                 }
                 blocks[startHeight][i] = grassBlock;
                 grassBlocks[i] = startHeight * 16;
-                for (int j = startHeight - 1; j >= startHeight - 3; j--) {
+                for (int j = startHeight - 1; j >= startHeight - 3 && j >= 0; j--) {
                     blocks[j][i] = dirtBlock;
                 }
                 for (int k = startHeight - 4; k >= 0; k--) {
@@ -59,7 +59,7 @@ public class worldGen {
                 }
                 blocks[startHeight][i] = grassBlock;
                 grassBlocks[i] = startHeight * 16;
-                for (int j = startHeight - 1; j >= startHeight - 3; j--) {
+                for (int j = startHeight - 1; j >= startHeight - 3 && j >= 0; j--) {
                     blocks[j][i] = dirtBlock;
                 }
                 for (int k = startHeight - 4; k >= 0; k--) {
@@ -71,7 +71,7 @@ public class worldGen {
             else if (number == 1 || number == 0 && up || number == 2 && down) {
                 blocks[startHeight][i] = grassBlock;
                 grassBlocks[i] = startHeight * 16;
-                for (int j = startHeight - 1; j >= startHeight - 3; j--) {
+                for (int j = startHeight - 1; j >= startHeight - 3 && j >= 0; j--) {
                     blocks[j][i] = dirtBlock;
                 }
                 for (int k = startHeight - 4; k >= 0; k--) {

@@ -84,9 +84,9 @@ public class Test extends ApplicationAdapter {
 		grassBox.y = 0;
 		grassBox.height = 16;
 		grassBox.width = 16;
-		playerBox.y -= 75 * Gdx.graphics.getDeltaTime();
+		playerBox.y -= 150 * Gdx.graphics.getDeltaTime();
 		for (int i = 0; i < 50; i++) {
-			grassBox.x = i;
+			grassBox.x = i * 16;
 			grassBox.y = gen.grassBlocks[i];
 			if (playerBox.overlaps(grassBox)) {
 				playerBox.y = grassBox.y + 16;
@@ -94,5 +94,7 @@ public class Test extends ApplicationAdapter {
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) playerBox.x -= 75 * Gdx.graphics.getDeltaTime();
 		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) playerBox.x += 75 * Gdx.graphics.getDeltaTime();
+		if(playerBox.x < 0) playerBox.x = 0;
+		if(playerBox.x > 800 - 16) playerBox.x = 800 - 16;
 	}
 }
